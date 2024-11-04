@@ -9,4 +9,7 @@ export default defineNuxtConfig({
       baseURL: "https://fakestoreapi.com",
     },
   },
+  devServer: {
+    port: 4000,
+  }
 })
