@@ -2,9 +2,21 @@
   <div>
     <NuxtLayout>
       <NuxtPage />
-    </NuxtLayout>
+</NuxtLayout>
   </div>
 </template>
+
+<script>
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+onMounted(() => {
+  router.push("/dashboard");
+})
+
+</script>
 
 <style >
 @import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&display=swap');

@@ -1,12 +1,11 @@
 <template>
 <div>
-    
+    asdf
 </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-    layout: "default"
-})
-
+  layout: "layout",
+});
 </script>
