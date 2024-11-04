@@ -1,59 +1,68 @@
 <template>
   <v-layout>
-    <v-card
-      rounded="lg"
-      class="ma-4 pa-4"
-      elevation="0"
-      style="
-        height: 100%;
-        min-width: 280px;
-        width: 280px;
-        position: fixed;
-        z-index: 10;
-      "
+    <v-navigation-drawer
+      tile
+      flat
+      floating
+      persistent
+      permanent
+      width="300"
+      style="background-color: transparent"
     >
-      <v-list v-for="item in sideBarItems">
-        <div class="px-6" style="font-weight: 600; font-size: 14px">
-          {{ item.name }}
-        </div>
-
-        <div v-for="subItem in item.items">
-          <v-hover>
-            <template v-slot:default="{ isHovering, props }">
-              <div
-                :style="isHovering ? 'background-color: #d9d9d9' : ''"
-                v-bind="props"
-                style="font-size: 16px; cursor: pointer; border-radius: 16px"
-                class="d-flex pa-3 ma-2"
-                @click="goToPage(subItem.link)"
-              >
-                <v-icon class="mr-2">{{ subItem.icon }}</v-icon>
-                <div style="font-size: 16px">{{ subItem.name }}</div>
-              </div>
-            </template>
-          </v-hover>
-        </div>
-      </v-list>
-      <div
-        class="d-flex w-100 justify-center"
-        style="background-color: white; position: sticky; bottom: 0"
+      <v-card
+        rounded="lg"
+        class="pa-6 h-100"
+        elevation="0"
+        style="min-width: 300px; width: 300px; overflow: auto"
       >
-        <img
-          style="height: 40px"
-          src="https://www.shutterstock.com/image-vector/shopping-logo-ecommerce-logotype-shooping-260nw-1978607771.jpg"
-          alt=""
-        />
-      </div>
-    </v-card>
+        <v-list v-for="item in sideBarItems">
+          <div class="px-6" style="font-weight: 600; font-size: 14px">
+            {{ item.name }}
+          </div>
+
+          <div v-for="subItem in item.items">
+            <v-hover>
+              <template v-slot:default="{ isHovering, props }">
+                <div
+                  :style="isHovering ? 'background-color: #d9d9d9' : ''"
+                  v-bind="props"
+                  style="font-size: 16px; cursor: pointer; border-radius: 16px"
+                  class="d-flex pa-3 ma-2"
+                  @click="goToPage(subItem.link)"
+                >
+                  <v-icon class="mr-2">{{ subItem.icon }}</v-icon>
+                  <div style="font-size: 16px">{{ subItem.name }}</div>
+                </div>
+              </template>
+            </v-hover>
+          </div>
+        </v-list>
+        <div
+          class="d-flex w-100 justify-center"
+          style="background-color: white; position: sticky; bottom: 0"
+        >
+          <img
+            style="height: 40px"
+            src="https://www.shutterstock.com/image-vector/shopping-logo-ecommerce-logotype-shooping-260nw-1978607771.jpg"
+            alt=""
+          />
+        </div>
+      </v-card>
+    </v-navigation-drawer>
 
     <div
-      style="position: fixed; z-index: 10"
+      style="position: fixed; z-index: 10; padding-right: 24px;"
       class="w-100 d-flex justify-center"
     >
       <v-card
         class="my-4"
         rounded="lg"
-        style="width: 100%; height: 80px; background-color: white; left: 333px"
+        style="
+          width: 100%;
+          height: 80px;
+          background-color: white;
+          margin-left: 333px;
+        "
         elevation="0"
       ></v-card>
     </div>
@@ -62,14 +71,14 @@
       style="
         position: fixed;
         z-index: 9;
-        height: 120px;
+        height: 100px;
         background-color: #e8e8e8;
       "
       class="w-100"
     ></div>
 
-    <v-main class="mr-4" style="margin-top: 120px; margin-left: 333px" >
-      <slot />
+    <v-main  style="margin-top: 120px; padding-left: 350px; padding-right: 24px;">
+      <slot  />
     </v-main>
   </v-layout>
 </template>
