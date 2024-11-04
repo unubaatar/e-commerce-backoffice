@@ -6,8 +6,8 @@
       elevation="0"
       style="
         height: 100%;
-        min-width: 300px;
-        width: 300px;
+        min-width: 280px;
+        width: 280px;
         position: fixed;
         z-index: 10;
       "
@@ -68,7 +68,7 @@
       class="w-100"
     ></div>
 
-    <v-main class="main" style="margin-top: 120px; margin-left: 333px">
+    <v-main class="mr-4" style="margin-top: 120px; margin-left: 333px" >
       <slot />
     </v-main>
   </v-layout>
