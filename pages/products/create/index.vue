@@ -122,9 +122,9 @@ const fetchBrands = async () => {
 const fetchCatogeries = async () => {
   try {
     const query = {
-      //   isActive: true,
+        isActive: true,
     };
-    const response = await axios.post(`${baseURL}/taxons/list`, query);
+    const response = await axios.post(`${baseURL}/categories/list`, query);
     if (response.status === 200) {
       catogories.value = response.data.rows;
     } else {

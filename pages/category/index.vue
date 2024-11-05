@@ -30,7 +30,7 @@
       hide-default-footer
       dense
       :headers="headers"
-      :items="catogories"
+      :items="categories"
       class="my-6"
     >
       <template v-slot:item.name="{ item }: any">
@@ -174,6 +174,13 @@
           />
         </div>
 
+        <v-row class="mx-2 my-4 mt-0">
+          <div class="d-flex align-center">
+            <div>Идэвхтэй болгох:</div>
+            <v-switch color="primary" class="ml-4" hide-details v-model="selectedCategory.isActive"></v-switch>
+          </div>
+        </v-row>
+
         <div class="d-flex justify-end w-100 mt-4">
           <v-btn
             variant="outlined"
@@ -243,7 +250,7 @@ const headers = ref<any>([
   },
 ]);
 
-const catogories = ref<any>([]);
+const categories = ref<any>([]);
 const categoryCount = ref<any>(0);
 const showCategoryDialog = ref<any>(false);
 const showCategoryUpdateDialog = ref<any>(false);
@@ -262,9 +269,9 @@ const fetchCatogeries = async () => {
       page: 1,
       per_page: 10,
     };
-    const response = await axios.post(`${baseURL}/taxons/list`, {});
+    const response = await axios.post(`${baseURL}/categories/list`, query);
     if (response.status === 200) {
-      catogories.value = response.data.rows;
+      categories.value = response.data.rows;
       categoryCount.value = response.data.count;
     } else {
       console.log("jiijii");
@@ -277,7 +284,7 @@ const fetchCatogeries = async () => {
 const addCategory = async () => {
   try {
     const response = await axios.post(
-      `${baseURL}/taxons/create`,
+      `${baseURL}/categories/create`,
       categoryToAdd.value
     );
     if (response.status === 201) {
@@ -297,7 +304,7 @@ const addCategory = async () => {
 const updateCategory = async () => {
   try {
     const response = await axios.post(
-      `${baseURL}/taxons/update`,
+      `${baseURL}/categories/update`,
       selectedCategory.value
     );
     if (response.status === 200) {
