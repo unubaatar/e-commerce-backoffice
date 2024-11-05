@@ -1,6 +1,77 @@
 <template>
   <div>
-    <div>{{ products }}</div>
+    <div style="font-size: 28px; font-weight: 400">
+      Бүтээгдхүүний жагсаалт
+    </div>
+    <div class="w-100 d-flex justify-end">
+      <v-btn
+        @click="goCreateProductPage"
+        elevation="0"
+        color="primary"
+        rounded="xl"
+        append-icon="mdi-plus"
+        >Бүтээгдхүүн нэмэх</v-btn
+      >
+    </div>
+    <div class="mt-4">
+      <v-data-table
+        dense
+        :items="products"
+        :headers="headers"
+        hide-default-footer
+      >
+        <template v-slot:item.image="{ item }: any">
+          <div>
+            <img style="height: 50px" :src="item.thumbnails[0]" alt="" />
+          </div>
+        </template>
+
+        <template v-slot:item.product="{ item }: any">
+          <div>
+            {{ item.name }}
+          </div>
+        </template>
+
+        <template v-slot:item.isActive="{ item }: any">
+          <div>
+            <v-chip v-if="item.isActive" color="green" size="small"
+              >Идэвхтэй</v-chip
+            >
+            <v-chip v-else color="red" size="small">Идэвхгүй</v-chip>
+          </div>
+        </template>
+
+        <template v-slot:item.createdAt="{ item }: any">
+          <div>
+            {{ moment(item.createdAt).format("YYYY/MM/DD - HH:mm:SS") }}
+          </div>
+        </template>
+
+        <template v-slot:item.taxon="{ item }: any">
+          <div>
+            {{ item.taxon.name }}
+          </div>
+        </template>
+
+        <template v-slot:item.brand="{ item }: any">
+          <div>
+            {{ item.brand.name }}
+          </div>
+        </template>
+
+        <template v-slot:item.price="{ item }: any">
+          <div>
+            {{ item.price.toLocaleString() }}
+          </div>
+        </template>
+
+        <template v-slot:item.action="{ item }: any">
+          <div>
+            <v-btn size="small" variant="text" icon="mdi-pencil"></v-btn>
+          </div>
+        </template>
+      </v-data-table>
+    </div>
   </div>
 </template>
 
@@ -24,6 +95,61 @@ const router = useRouter();
 const products = ref<any>([]);
 const productCount = ref<any>(0);
 
+const headers = ref<any>([
+  {
+    title: "Зураг",
+    value: "image",
+    align: "center",
+    sortable: false,
+  },
+  {
+    title: "Бүтээгдхүүн",
+    value: "product",
+    align: "center",
+    sortable: false,
+  },
+  {
+    title: "Төлөв",
+    value: "isActive",
+    align: "center",
+    sortable: false,
+  },
+  {
+    title: "Бренд",
+    value: "brand",
+    align: "center",
+    sortable: false,
+  },
+  {
+    title: "Ангилал",
+    value: "taxon",
+    align: "center",
+    sortable: false,
+  },
+  {
+    title: "Үүссэн огноо",
+    value: "createdAt",
+    align: "center",
+    sortable: false,
+  },
+  {
+    title: "Үнэ",
+    value: "price",
+    align: "center",
+    sortable: false,
+  },
+  {
+    title: "Үйлдэл",
+    value: "action",
+    align: "center",
+    sortable: false,
+  },
+]);
+
+const goCreateProductPage = () => {
+  router.push("/products/create");
+};
+
 const fetchProducts = async () => {
   try {
     const response = await axios.post(`${baseURL}/products/list`, {});
@@ -37,7 +163,6 @@ const fetchProducts = async () => {
     console.log(err);
   }
 };
-
 
 onMounted(async () => {
   await fetchProducts();
