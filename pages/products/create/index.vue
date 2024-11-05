@@ -106,7 +106,7 @@ const productToAdded = ref<any>({});
 const fetchBrands = async () => {
   try {
     const query = {
-      //   isActive: true,
+        isActive: true,
     };
     const response = await axios.post(`${baseURL}/brands/list`, query);
     if (response.status === 200) {

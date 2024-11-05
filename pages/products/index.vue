@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div style="font-size: 28px; font-weight: 400">
-      Бүтээгдхүүний жагсаалт
-    </div>
+    <div style="font-size: 28px; font-weight: 400">Бүтээгдхүүний жагсаалт</div>
     <div class="w-100 d-flex justify-end">
       <v-btn
         @click="goCreateProductPage"
@@ -21,7 +19,10 @@
         hide-default-footer
       >
         <template v-slot:item.image="{ item }: any">
-          <div>
+          <div
+            style="cursor: pointer"
+            @click="router.push(`/products/${item._id}`)"
+          >
             <img style="height: 50px" :src="item.thumbnails[0]" alt="" />
           </div>
         </template>
@@ -80,18 +81,17 @@ definePageMeta({
   layout: "layout",
 });
 
-const config = useRuntimeConfig();
-const baseURL = config.public.baseURL;
-
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import moment from "moment";
+import { useRuntimeConfig } from "nuxt/app";
 
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
 const router = useRouter();
-
 const products = ref<any>([]);
 const productCount = ref<any>(0);
 

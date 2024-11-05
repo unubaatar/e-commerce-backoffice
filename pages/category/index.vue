@@ -208,15 +208,14 @@ definePageMeta({
   layout: "layout",
 });
 
-const config = useRuntimeConfig();
-const baseURL = config.public.baseURL;
-
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import moment from "moment";
 
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
 const headers = ref<any>([
   {
     title: "Нэр",
