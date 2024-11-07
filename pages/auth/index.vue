@@ -87,6 +87,7 @@ const login = async () => {
     );
     if (response.status === 200) {
       localStorage.setItem("userId", response.data.user);
+      localStorage.setItem("avatar" , response.data.avatar);
       router.push("/dashboard");
     } else {
       console.log("jiijii");

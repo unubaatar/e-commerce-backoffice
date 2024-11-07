@@ -51,11 +51,11 @@
     </v-navigation-drawer>
 
     <div
-      style="position: fixed; z-index: 10; padding-right: 24px;"
+      style="position: fixed; z-index: 10; padding-right: 24px"
       class="w-100 d-flex justify-center"
     >
       <v-card
-        class="my-4"
+        class="my-4 d-flex justify-end align-center pa-4"
         rounded="lg"
         style="
           width: 100%;
@@ -64,7 +64,20 @@
           margin-left: 333px;
         "
         elevation="0"
-      ></v-card>
+      >
+        <div>
+          <img
+            style="
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              cursor: pointer;
+            "
+            :src="avatar"
+            alt=""
+          />
+        </div>
+      </v-card>
     </div>
 
     <div
@@ -77,18 +90,22 @@
       class="w-100"
     ></div>
 
-    <v-main  style="margin-top: 120px; padding-left: 350px; padding-right: 24px;">
-      <slot  />
+    <v-main style="margin-top: 120px; padding-left: 350px; padding-right: 24px">
+      <slot />
     </v-main>
   </v-layout>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 definePageMeta({});
 
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
+
 const router = useRouter();
+
+const avatar = ref<any>("");
 
 const sideBarItems = ref<any>([
   {
@@ -156,6 +173,10 @@ const sideBarItems = ref<any>([
 const goToPage = (link: any) => {
   router.push(link);
 };
+
+onMounted(() => {
+  avatar.value = localStorage.getItem("avatar");
+});
 </script>
 
 <style scoped>
