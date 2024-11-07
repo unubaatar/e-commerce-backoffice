@@ -1,18 +1,17 @@
 <template>
-    <div>
-
-    </div>
+  <div></div>
 </template>
-  
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+definePageMeta({
+  layout: "layout",
+  middleware: ["auth"],
+});
+
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-onMounted(() => {
-  router.push("/dashboard");
-})
-
+onMounted(() => {});
 </script>
