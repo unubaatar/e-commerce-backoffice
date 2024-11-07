@@ -2,16 +2,21 @@
   <div>
     <div style="font-size: 28px; font-weight: 400">Бүтээгдхүүний жагсаалт</div>
     <div class="w-100 d-flex justify-end">
-      <v-btn
-        @click="goCreateProductPage"
-        elevation="0"
-        color="primary"
-        rounded="xl"
-        append-icon="mdi-plus"
-        >Бүтээгдхүүн нэмэх</v-btn
-      >
+      <div>
+        <div class="mb-3 w-100 text-end pr-4" style="font-weight: 500">
+          Нийт: <span>{{ productCount }}</span>
+        </div>
+        <v-btn
+          @click="goCreateProductPage"
+          elevation="0"
+          color="primary"
+          rounded="xl"
+          append-icon="mdi-plus"
+          >Бүтээгдхүүн нэмэх</v-btn
+        >
+      </div>
     </div>
-    <div class="mt-4">
+    <div class="my-4 mb-8">
       <v-data-table
         dense
         :items="products"
@@ -72,6 +77,13 @@
           </div>
         </template>
       </v-data-table>
+      <v-pagination
+        class="mt-4"
+        :length="length"
+        v-model="page"
+        @update:modelValue="fetchProducts()"
+      >
+      </v-pagination>
     </div>
   </div>
 </template>
@@ -79,6 +91,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "layout",
+  middleware: ['auth']
 });
 
 import axios from "axios";
@@ -94,6 +107,9 @@ const baseURL = config.public.baseURL;
 const router = useRouter();
 const products = ref<any>([]);
 const productCount = ref<any>(0);
+const length = ref<any>(0);
+const page = ref<any>(1);
+const per_page = ref<any>(10);
 
 const headers = ref<any>([
   {
@@ -152,7 +168,11 @@ const goCreateProductPage = () => {
 
 const fetchProducts = async () => {
   try {
-    const response = await axios.post(`${baseURL}/products/list`, {});
+    const query = {
+      page: page.value,
+      per_page: per_page.value,
+    };
+    const response = await axios.post(`${baseURL}/products/list`, query);
     if (response.status === 200) {
       products.value = response.data.rows;
       productCount.value = response.data.count;
@@ -166,5 +186,6 @@ const fetchProducts = async () => {
 
 onMounted(async () => {
   await fetchProducts();
+  length.value = Math.ceil(productCount.value / (per_page.value - 1));
 });
 </script>

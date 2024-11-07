@@ -65,18 +65,37 @@
         "
         elevation="0"
       >
-        <div>
-          <img
-            style="
-              width: 50px;
-              height: 50px;
-              border-radius: 50%;
-              cursor: pointer;
-            "
-            :src="avatar"
-            alt=""
-          />
-        </div>
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <div
+              v-bind="props"
+              style="cursor: pointer"
+              class="d-flex align-center"
+            >
+              <img
+                style="width: 50px; height: 50px; border-radius: 50%"
+                :src="user.avatar"
+                alt=""
+              />
+              <div class="mx-4">
+                <p style="font-weight: bold">{{ user.firstName }}</p>
+                <p style="font-size: 13px">{{ formatRole() }}</p>
+              </div>
+            </div>
+          </template>
+          <v-list>
+            <v-list-item
+              @click="router.push('/profile')"
+              style="cursor: pointer"
+            >
+              <v-icon class="mr-3">mdi-account</v-icon>
+              Profile</v-list-item
+            >
+            <v-list-item @click="logOut()" style="cursor: pointer"
+              ><v-icon class="mr-3">mdi-logout</v-icon>Log out</v-list-item
+            >
+          </v-list>
+        </v-menu>
       </v-card>
     </div>
 
@@ -106,6 +125,9 @@ import axios from "axios";
 const router = useRouter();
 
 const avatar = ref<any>("");
+const config = useRuntimeConfig();
+const baseURL = config.public.baseURL;
+const user = ref<any>({});
 
 const sideBarItems = ref<any>([
   {
@@ -170,12 +192,42 @@ const sideBarItems = ref<any>([
   },
 ]);
 
+const getUserData = async () => {
+  try {
+    const query = {
+      _id: localStorage.getItem("userId"),
+    };
+    const response = await axios.post(`${baseURL}/users/getById`, query);
+    if (response.status === 200) {
+      user.value = response.data;
+    } else {
+      console.log("jiijii");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const formatRole = () => {
+  switch (user.value.role) {
+    case "admin":
+      return "Админ";
+    case "productManager":
+      return "Бүтээгдхүүн хөгжүүлэгч";
+  }
+};
+
 const goToPage = (link: any) => {
   router.push(link);
 };
 
-onMounted(() => {
-  avatar.value = localStorage.getItem("avatar");
+const logOut = () => {
+  localStorage.removeItem("userId");
+  router.push("/auth");
+};
+
+onMounted(async () => {
+  await getUserData();
 });
 </script>
 
