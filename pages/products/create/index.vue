@@ -58,7 +58,7 @@
             </v-col>
             <v-col cols="6">
               <v-select
-                v-model="productToAdded.taxon"
+                v-model="productToAdded.category"
                 :items="catogories"
                 item-title="name"
                 item-value="_id"

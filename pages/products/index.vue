@@ -53,9 +53,9 @@
           </div>
         </template>
 
-        <template v-slot:item.taxon="{ item }: any">
+        <template v-slot:item.category="{ item }: any">
           <div>
-            {{ item.taxon.name }}
+            {{ item.category.name }}
           </div>
         </template>
 
@@ -138,7 +138,7 @@ const headers = ref<any>([
   },
   {
     title: "Ангилал",
-    value: "taxon",
+    value: "category",
     align: "center",
     sortable: false,
   },

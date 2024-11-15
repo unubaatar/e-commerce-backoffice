@@ -64,7 +64,7 @@
         </v-col>
         <v-col cols="4">
           <v-select
-            v-model="product.taxon"
+            v-model="product.category"
             :items="catogories"
             item-title="name"
             item-value="_id"
