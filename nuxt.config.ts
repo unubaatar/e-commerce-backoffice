@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       baseURL: "http://localhost:4004/api",
-      // baseURL: "https://fakestoreapi.com",
+      // baseURL: "https://172.20.10.2/api"
     },
   },
   devServer: {

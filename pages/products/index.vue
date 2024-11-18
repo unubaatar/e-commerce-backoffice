@@ -3,6 +3,7 @@
     <div style="font-size: 28px; font-weight: 400">Бүтээгдхүүний жагсаалт</div>
     <div class="w-100 d-flex justify-end">
       <div>
+        <!-- <div>{{ products.length }}</div> -->
         <div class="mb-3 w-100 text-end pr-4" style="font-weight: 500">
           Нийт: <span>{{ productCount }}</span>
         </div>
@@ -73,7 +74,7 @@
 
         <template v-slot:item.action="{ item }: any">
           <div>
-            <v-btn size="small" variant="text" icon="mdi-pencil"></v-btn>
+            <v-btn @click="router.push(`/products/${item._id}`)"  size="small" variant="text" icon="mdi-pencil"></v-btn>
           </div>
         </template>
       </v-data-table>
@@ -97,8 +98,6 @@ definePageMeta({
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
 import moment from "moment";
 import { useRuntimeConfig } from "nuxt/app";
 
