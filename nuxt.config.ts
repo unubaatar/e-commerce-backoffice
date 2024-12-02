@@ -5,8 +5,8 @@ export default defineNuxtConfig({
   modules: ["vuetify-nuxt-module"],
   runtimeConfig: {
     public: {
-      // baseURL: "http://localhost:4004/api",
-      baseURL: "http://13.231.156.66:4004/api"
+      baseURL: "http://localhost:4004/api",
+      // baseURL: "http://13.231.156.66:4004/api"
     },
   },
   devServer: {
