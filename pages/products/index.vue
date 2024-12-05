@@ -3,7 +3,6 @@
     <div style="font-size: 28px; font-weight: 400">Бүтээгдхүүний жагсаалт</div>
     <div class="w-100 d-flex justify-end">
       <div>
-        <!-- <div>{{ products.length }}</div> -->
         <div class="mb-3 w-100 text-end pr-4" style="font-weight: 500">
           Нийт: <span>{{ productCount }}</span>
         </div>
@@ -185,6 +184,6 @@ const fetchProducts = async () => {
 
 onMounted(async () => {
   await fetchProducts();
-  length.value = Math.ceil(productCount.value / (per_page.value - 1));
+  length.value = Math.ceil(productCount.value / (per_page.value));
 });
 </script>
