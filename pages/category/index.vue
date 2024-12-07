@@ -25,8 +25,8 @@
         >
       </div>
     </div>
-
     <v-data-table
+      items-per-page="100"
       hide-default-footer
       dense
       :headers="headers"
@@ -266,8 +266,6 @@ const categoryToAdd = ref<any>({
 const fetchCatogeries = async () => {
   try {
     const query = {
-      page: 1,
-      per_page: 10,
     };
     const response = await axios.post(`${baseURL}/categories/list`, query);
     if (response.status === 200) {
